@@ -2,28 +2,32 @@ import React, { useState, useEffect, useRef } from "react";
 import Actions from "../EventActions";
 
 const ChatBar = ({ socketRef, id, userName }) => {
-  const [messages, setMessages] = useState([]);
-  const [message, setMessage] = useState("");
-  const chatRef = useRef(null);
+  const [messages, setMessages] = useState([]); // State to store chat messages
+  const [message, setMessage] = useState(""); // State to store the current message being typed
+  const chatRef = useRef(null); // Reference to the chat container element
 
   useEffect(() => {
     if (socketRef.current) {
+      // Event listener for receiving chat messages
       socketRef.current.on(Actions.CHAT_MESSAGE, ({ message, userName }) => {
         setMessages((prevMessages) => [...prevMessages, { message, userName }]);
       });
     }
 
     return () => {
+      // Cleanup function to remove the event listener when component unmounts
       socketRef.current.off(Actions.CHAT_MESSAGE);
     };
   }, [socketRef.current]);
 
   useEffect(() => {
+    // Scroll to the bottom of the chat container when new messages are added
     chatRef.current.scrollTop = chatRef.current.scrollHeight;
   }, [messages]);
 
   const handleSendMessage = () => {
-    if (message.trim() !== ""){
+    if (message.trim() !== "") {
+      // Emit a chat message event to the server
       socketRef.current.emit(Actions.CHAT_MESSAGE, { id, message, userName });
       setMessage("");
     }
@@ -33,11 +37,12 @@ const ChatBar = ({ socketRef, id, userName }) => {
     const urlRegex = /(https?:\/\/[^\s]+)/g;
     return message.split(urlRegex).map((part, index) => {
       if (part.match(urlRegex)) {
+        // Render links as underlined anchor tags
         return (
           <u>
-          <a key={index} href={part} target="_blank" rel="noreferrer" className="text-cyan-500">
-            {part}
-          </a>
+            <a key={index} href={part} target="_blank" rel="noreferrer" className="text-cyan-500">
+              {part}
+            </a>
           </u>
         );
       }
@@ -48,6 +53,7 @@ const ChatBar = ({ socketRef, id, userName }) => {
   return (
     <div className="flex flex-col h-full w-1/4 bg-gray-500 p-4">
       <div className="flex-grow overflow-y-auto" ref={chatRef}>
+        {/* Render chat messages */}
         {messages.map(({ message, userName }, index) => (
           <div key={index} className="mb-2">
             <strong>{userName}:</strong> {handleLinks(message)}

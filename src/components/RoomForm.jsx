@@ -1,40 +1,57 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react"; // Importing React and useState hook from the react package
+import { v4 as uuidv4 } from "uuid"; // Importing the v4 function from the uuid package
+import { toast } from "react-hot-toast"; // Importing the toast function from the react-hot-toast package
+import { useNavigate } from "react-router-dom"; // Importing the useNavigate hook from the react-router-dom package
 
+/**
+ * Represents a form component for joining or creating a room.
+ * @component
+ */
 const RoomForm = () => {
-  const [roomID, setRoomId] = useState("");
-  const [userName, setUserName] = useState("");
-  const navigate = useNavigate();
+  // Defining state variables
+  const [userName, setUserName] = useState(""); // Declaring a state variable userName and a function setUserName to update it
+  const [roomID, setRoomId] = useState(""); // Declaring a state variable roomID and a function setRoomId to update it
+  const navigate = useNavigate(); // Assigning the useNavigate hook to the navigate variable
 
+  /**
+   * Creates a new room and updates the roomID state variable.
+   * @param {Event} event - The event object.
+   */
   const createRoom = (event) => {
-    event.preventDefault();
-    const newRoom = uuidv4();
-    setRoomId(newRoom);
-    toast.success("New room id generated");
+    event.preventDefault(); // Preventing the default behavior of the event
+    const newRoom = uuidv4(); // Generating a new room ID using the uuidv4 function
+    setRoomId(newRoom); // Updating the roomID state variable with the new room ID
+    toast.success("New room ID generated"); // Displaying a success toast message
   };
 
+  /**
+   * Handles the join action by navigating to the editor page with the specified room ID and user name.
+   */
   const handleJoin = () => {
-    if (!roomID || !userName) {
-      toast.error("Room ID and UserName needed ");
-      return;
+    if (!roomID || !userName) { // Checking if roomID or userName is empty
+      toast.error("Room ID and UserName needed"); // Displaying an error toast message
+      return; // Exiting the function
     }
 
-    //Implementing navigation
-    navigate(`/editor/${roomID}`, {
+    // Implementing navigation
+    navigate(`/editor/${roomID}`, { // Navigating to the specified URL with roomID as a parameter
       state: {
-        userName,
+        userName, // Passing the userName as a state parameter
       },
     });
   };
 
+  /**
+   * Handles the keydown event and calls the handleJoin function if the Enter key is pressed.
+   * @param {Event} event - The event object.
+   */
   const handleEnter = (event) => {
-    if (event.code == "Enter") {
-      handleJoin();
+    if (event.code == "Enter") { // Checking if the key code of the event is "Enter"
+      handleJoin(); // Calling the handleJoin function
     }
   };
 
+  // Rendering the component
   return (
     <div className="px-8 py-4 flex flex-col space-y-4 bg-slate-900 text-white w-10/12 md:1/2 lg:w-1/3  transition-all duration-200">
       <div
@@ -93,4 +110,4 @@ const RoomForm = () => {
   );
 };
 
-export default RoomForm;
+export default RoomForm; // Exporting the RoomForm component as the default export
