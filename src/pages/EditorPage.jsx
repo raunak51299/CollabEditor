@@ -19,6 +19,11 @@ const EditorPage = () => {
   const socketRef = useRef(null); // Create a mutable ref object to store the socket connection
   const [clients, setClients] = useState([]); // Initialize the clients state with an empty array
   const syncCodeRef = useRef(null); // Create a mutable ref object to store the synced code
+  const [showChatBar, setShowChatBar] = useState(true);
+
+  const toggleChatBar = () => {
+    setShowChatBar((prevState) => !prevState);
+  };
 
   useEffect(() => {
     const initialize = async () => {
@@ -92,7 +97,7 @@ const EditorPage = () => {
     return <Navigate to="/" />;
   }
 
-  return (
+ return (
     <div className="flex flex-col md:flex-row h-screen w-full relative">
       <EditorAside clients={clients} id={id} />
       <div className="flex flex-grow">
@@ -102,11 +107,19 @@ const EditorPage = () => {
           textChange={handletextChange}
           clients={clients}
         />
-        <ChatBar
-          socketRef={socketRef}
-          id={id}
-          userName={location.state?.userName}
-        />
+        {showChatBar && (
+          <ChatBar
+            socketRef={socketRef}
+            id={id}
+            userName={location.state?.userName}
+          />
+        )}
+        <button
+          className="absolute top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded"
+          onClick={toggleChatBar}
+        >
+          {showChatBar ? "Hide Chat" : "Show Chat"}
+        </button>
       </div>
     </div>
   );
