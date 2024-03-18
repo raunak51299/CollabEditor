@@ -53,7 +53,6 @@ const ChatBar = ({ socketRef, id, userName }) => {
   return (
     <div className="flex flex-col h-full w-1/4 bg-gray-500 p-4">
       <div className="flex-grow overflow-y-auto" ref={chatRef}>
-        {/* Render chat messages */}
         {messages.map(({ message, userName }, index) => (
           <div key={index} className="mb-2">
             <strong>{userName}:</strong> {handleLinks(message)}
