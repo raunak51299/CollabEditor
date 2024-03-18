@@ -7,7 +7,6 @@ import Actions from "../EventActions";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams, Navigate } from "react-router-dom";
-import Navbar from "../components/navbar";
 /**
  * EditorPage component represents the main editor page.
  * It initializes the socket connection, handles socket events,
