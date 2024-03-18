@@ -7,11 +7,7 @@ import Actions from "../EventActions";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams, Navigate } from "react-router-dom";
-/**
- * EditorPage component represents the main editor page.
- * It initializes the socket connection, handles socket events,
- * and renders the editor and sidebar components.
- */
+
 const EditorPage = () => {
   const location = useLocation(); // Get the current location object from react-router-dom
   const reactNavigator = useNavigate(); // Get the navigate function from react-router-dom
@@ -115,7 +111,7 @@ const EditorPage = () => {
           />
         )}
         <button
-          className="absolute top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded"
+          className="absolute top-2 right-2 px-4 py-2 bg-slate-800 text-white rounded"
           onClick={toggleChatBar}
         >
           {showChatBar ? "Hide Chat" : "Show Chat"}

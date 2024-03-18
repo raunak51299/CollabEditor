@@ -99,15 +99,12 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
 
   return (
     <>
-      <div className="flex items-center mb-2">
-        <label htmlFor="language" className="mr-2">
-          Language:
-        </label>
+      <div className="flex items-center mb-2 absolute z-10" style={{ right: "50%" }}>
         <select
           id="language"
           value={language}
           onChange={handleLanguageChange}
-          className="px-2 py-1 rounded"
+          className="px-2 py-1 rounded dropdown-button-size"
         >
           <option value="javascript">JavaScript</option>
           <option value="python">Python</option>
