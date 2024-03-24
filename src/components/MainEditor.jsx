@@ -111,7 +111,7 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
           <option value="xml">HTML</option>
         </select>
       </div>
-      <textarea className="w-full h-full" id="realEditor"></textarea>
+      <textarea className="w-full h-full" id="realEditor" style={{"white-space": "pre-wrap", "word-wrap": "break-word"}}></textarea>
     </>
   );
 };

@@ -3,20 +3,12 @@ import { v4 as uuidv4 } from "uuid"; // Importing the v4 function from the uuid 
 import { toast } from "react-hot-toast"; // Importing the toast function from the react-hot-toast package
 import { useNavigate } from "react-router-dom"; // Importing the useNavigate hook from the react-router-dom package
 
-/**
- * Represents a form component for joining or creating a room.
- * @component
- */
 const RoomForm = () => {
   // Defining state variables
   const [userName, setUserName] = useState(""); // Declaring a state variable userName and a function setUserName to update it
   const [roomID, setRoomId] = useState(""); // Declaring a state variable roomID and a function setRoomId to update it
   const navigate = useNavigate(); // Assigning the useNavigate hook to the navigate variable
 
-  /**
-   * Creates a new room and updates the roomID state variable.
-   * @param {Event} event - The event object.
-   */
   const createRoom = (event) => {
     event.preventDefault(); // Preventing the default behavior of the event
     const newRoom = uuidv4(); // Generating a new room ID using the uuidv4 function
@@ -24,9 +16,6 @@ const RoomForm = () => {
     toast.success("New room ID generated"); // Displaying a success toast message
   };
 
-  /**
-   * Handles the join action by navigating to the editor page with the specified room ID and user name.
-   */
   const handleJoin = () => {
     if (!roomID || !userName) { // Checking if roomID or userName is empty
       toast.error("Room ID and UserName needed"); // Displaying an error toast message
@@ -41,10 +30,6 @@ const RoomForm = () => {
     });
   };
 
-  /**
-   * Handles the keydown event and calls the handleJoin function if the Enter key is pressed.
-   * @param {Event} event - The event object.
-   */
   const handleEnter = (event) => {
     if (event.code == "Enter") { // Checking if the key code of the event is "Enter"
       handleJoin(); // Calling the handleJoin function

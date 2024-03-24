@@ -7,6 +7,9 @@ import Actions from "../EventActions";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { useNavigate, useParams, Navigate } from "react-router-dom";
+import { ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
+import { space } from "postcss/lib/list";
 
 const EditorPage = () => {
   const location = useLocation(); // Get the current location object from react-router-dom
@@ -79,11 +82,6 @@ const EditorPage = () => {
     };
   }, []);
 
-  /**
-   * Handle the text change event in the editor.
-   * Updates the synced code with the new text.
-   * @param {string} text - The new text in the editor.
-   */
   const handletextChange = (text) => {
     syncCodeRef.current = text;
   };
@@ -93,8 +91,8 @@ const EditorPage = () => {
     return <Navigate to="/" />;
   }
 
- return (
-    <div className="flex flex-col md:flex-row h-screen w-full relative">
+  return (
+    <div className="flex flex-col md:flex-row h-screen w-full relative overflow-x-hidden">
       <EditorAside clients={clients} id={id} />
       <div className="flex flex-grow">
         <MainEditor
@@ -104,11 +102,13 @@ const EditorPage = () => {
           clients={clients}
         />
         {showChatBar && (
+          <ResizableBox width={300} height={Infinity} axis="x" minConstraints={[100, Infinity]} maxConstraints={[300, Infinity]} resizeHandles={['w']}>
           <ChatBar
             socketRef={socketRef}
             id={id}
             userName={location.state?.userName}
           />
+        </ResizableBox>
         )}
         <button
           className="absolute top-2 right-2 px-4 py-2 bg-slate-800 text-white rounded"
