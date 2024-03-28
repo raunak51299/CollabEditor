@@ -102,13 +102,20 @@ const EditorPage = () => {
           clients={clients}
         />
         {showChatBar && (
-          <ResizableBox width={300} height={Infinity} axis="x" minConstraints={[100, Infinity]} maxConstraints={[300, Infinity]} resizeHandles={['w']}>
-          <ChatBar
-            socketRef={socketRef}
-            id={id}
-            userName={location.state?.userName}
-          />
-        </ResizableBox>
+          <ResizableBox
+            width={300}
+            height={Infinity}
+            axis="x"
+            minConstraints={[100, Infinity]}
+            maxConstraints={[300, Infinity]}
+            resizeHandles={["w"]}
+          >
+            <ChatBar
+              socketRef={socketRef}
+              id={id}
+              userName={location.state?.userName}
+            />
+          </ResizableBox>
         )}
         <button
           className="absolute top-2 right-2 px-4 py-2 bg-slate-800 text-white rounded"

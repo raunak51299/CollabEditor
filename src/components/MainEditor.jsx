@@ -8,11 +8,13 @@ import "codemirror/mode/xml/xml";
 import "codemirror/addon/edit/closetag";
 import "codemirror/addon/edit/closebrackets";
 import Actions from "../EventActions";
+import Interpreter from "js-interpreter";
 
 const MainEditor = ({ socketRef, id, textChange, clients }) => {
   const editorRef = useRef(null);
   const cursorsRef = useRef({});
   const [language, setLanguage] = useState("javascript");
+  const [output, setOutput] = useState("");
 
   // Initialize the code editor
   async function init() {
@@ -27,6 +29,30 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
       }
     );
   }
+
+  const runCode = () => {
+    const userCode = editorRef.current.getValue();
+    const myInterpreter = new Interpreter(userCode, (interpreter, globalObject) => {
+      const consoleLogWrapper = (text) => {
+        output += text + "\n";
+      };
+      const consoleErrorWrapper = (error) => {
+        output += "Error: " + error + "\n";
+      };
+      interpreter.setProperty(globalObject, "console", interpreter.nativeToPseudo({ log: consoleLogWrapper, error: consoleErrorWrapper }));
+    });
+    let output = "";
+    try {
+      myInterpreter.run();
+      if (myInterpreter.value) {
+        output = myInterpreter.value.toString();
+      }
+    } catch (error) {
+      output = "Error: " + error.message;
+    }
+    setOutput(output);
+  };
+
   const handleLanguageChange = (event) => {
     const selectedLanguage = event.target.value;
     setLanguage(selectedLanguage);
@@ -111,7 +137,14 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
           <option value="xml">HTML</option>
         </select>
       </div>
-      <textarea className="w-full h-full" id="realEditor" style={{"white-space": "pre-wrap", "word-wrap": "break-word"}}></textarea>
+      <textarea className="w-full h-full" id="realEditor"></textarea>
+        <button className="absolute bottom-2 right-1/4 px-4 py-2 bg-blue-800 text-white rounded z-10" onClick={runCode}>
+        Run
+        </button>
+      <div className="absolute bottom-0 left-0 right-0 bg-gray-100 p-5 border-t border-gray-300">
+        <h3>Output:</h3>
+        <pre>{output}</pre>
+      </div>
     </>
   );
 };
