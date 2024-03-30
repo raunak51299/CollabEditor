@@ -38,7 +38,7 @@ const RoomForm = () => {
 
   // Rendering the component
   return (
-    <div className="px-8 py-4 flex flex-col space-y-4 bg-slate-900 text-white w-10/12 md:1/2 lg:w-1/3  transition-all duration-200">
+    <div className="px-8 py-4 flex flex-col space-y-4 bg-slate-900 text-white w-10/12 md:1/2 lg:w-1/3  transition-all duration-200 rounded-lg">
       <div
         className="w-full flex justify-start space-x-2 items-center"
         id="logo-box"

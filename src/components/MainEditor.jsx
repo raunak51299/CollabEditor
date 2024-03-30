@@ -125,12 +125,12 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
 
   return (
     <>
-      <div className="flex items-center mb-2 absolute z-10" style={{ right: "50%" }}>
+      <div className="flex items-center mb-2 absolute z-10 rounded-lg" style={{ right: "50%" }}>
         <select
           id="language"
           value={language}
           onChange={handleLanguageChange}
-          className="px-2 py-1 rounded dropdown-button-size"
+          className="px-2 py-1 rounded dropdown-button-size bg-gray-400 m-0.5 rounded-lg"
         >
           <option value="javascript">JavaScript</option>
           <option value="python">Python</option>
@@ -138,10 +138,10 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
         </select>
       </div>
       <textarea className="w-full h-full" id="realEditor"></textarea>
-        <button className="absolute bottom-2 right-1/4 px-4 py-2 bg-blue-800 text-white rounded z-10" onClick={runCode}>
+        <button className="absolute bottom-2 right-1/4 px-4 py-2 bg-blue-800 text-white rounded z-10 rounded-lg" onClick={runCode}>
         Run
         </button>
-      <div className="absolute bottom-0 left-0 right-0 bg-gray-100 p-5 border-t border-gray-300">
+      <div className="absolute bottom-0 left-0 right-0 bg-gray-100 p-5 border-gray-300 bg-gray-400 rounded-lg">
         <h3>Output:</h3>
         <pre>{output}</pre>
       </div>

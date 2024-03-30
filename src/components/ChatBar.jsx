@@ -47,7 +47,7 @@ const ChatBar = ({ socketRef, id, userName }) => {
 
   return (
       <div className="flex flex-col h-full bg-gray-500 p-4">
-      <div className="flex-grow overflow-y-auto" ref={chatRef}>
+      <div className="flex-grow overflow-y-auto " ref={chatRef}>
         {messages.map(({ message, userName }, index) => (
           <div key={index} className="mb-2">
             <strong>{userName}:</strong> {handleLinks(message)}
@@ -57,7 +57,7 @@ const ChatBar = ({ socketRef, id, userName }) => {
       <div className="flex mt-4">
         <input
           type="text"
-          className="flex-grow px-2 py-1 border border-gray-300 rounded"
+          className="flex-grow px-2 py-1 border border-gray-300 rounded-lg"
           placeholder="Type a message..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -68,7 +68,7 @@ const ChatBar = ({ socketRef, id, userName }) => {
           }}
         />
         <button
-          className="ml-2 px-4 py-1 bg-green-500 text-white rounded"
+          className="ml-2 px-4 py-1 bg-green-500 text-white rounded-lg"
           onClick={handleSendMessage}
         >
           Send

@@ -118,7 +118,7 @@ const EditorPage = () => {
           </ResizableBox>
         )}
         <button
-          className="absolute top-2 right-2 px-4 py-2 bg-slate-800 text-white rounded"
+          className="absolute top-2 right-2 px-4 py-2 bg-slate-800 text-white rounded-lg"
           onClick={toggleChatBar}
         >
           {showChatBar ? "Hide Chat" : "Show Chat"}
