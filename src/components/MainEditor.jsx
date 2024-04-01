@@ -28,6 +28,18 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
         lineNumbers: true,
       }
     );
+    editorRef.current.on("change", (instance, changes) => {
+      const { origin } = changes;
+      const text = instance.getValue();
+      textChange(text);
+    
+      if (origin !== "setValue") {
+        socketRef.current.emit(Actions.CODE_CHANGE, {
+          id,
+          text,
+        });
+      }
+    });
   }
 
   const runCode = () => {
