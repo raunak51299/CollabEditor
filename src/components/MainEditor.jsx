@@ -32,13 +32,21 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
       const { origin } = changes;
       const text = instance.getValue();
       textChange(text);
-    
+
       if (origin !== "setValue") {
-        socketRef.current.emit(Actions.CODE_CHANGE, {
-          id,
-          text,
-        });
+      socketRef.current.emit(Actions.CODE_CHANGE, {
+        id,
+        text,
+      });
       }
+    });
+
+    editorRef.current.on("cursorActivity", () => {
+      const cursor = editorRef.current.getCursor();
+      socketRef.current.emit(Actions.CURSOR_MOVE, {
+      id,
+      cursor,
+      });
     });
   }
 
