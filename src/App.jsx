@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 import { Toaster } from "react-hot-toast";
 import EditorPage from "./pages/EditorPage";
 
-//Main component
+// Main component
 function App() {
   return (
     <>

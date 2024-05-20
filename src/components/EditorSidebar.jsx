@@ -24,7 +24,7 @@ const EditorAside = ({ clients, id, socket, username }) => {
     navigate("/");
   };
   return (
-    <div className="flex flex-row md:flex-col justify-between bg-indigo-900 w-full h-16 md:w-60 md:h-screen transition-all duration-100 md:px-4 md:py-2 px-4 py-4 items-center relative ">
+    <div className="flex flex-row md:flex-col justify-between bg-indigo-900 w-full h-16 md:w-60 md:h-screen transition-all duration-100 md:px-4 md:py-2 px-4 py-4 items-center relative z-10">
       <div className="flex flex-row space-x-6 md:space-x-0 md:flex-col md:space-y-6 items-start">
         <div>
           <div className="w-full flex justify-start space-x-2 items-center ">

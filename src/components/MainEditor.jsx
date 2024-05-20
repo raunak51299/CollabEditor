@@ -28,6 +28,26 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
         lineNumbers: true,
       }
     );
+    editorRef.current.on("change", (instance, changes) => {
+      const { origin } = changes;
+      const text = instance.getValue();
+      textChange(text);
+
+      if (origin !== "setValue") {
+      socketRef.current.emit(Actions.CODE_CHANGE, {
+        id,
+        text,
+      });
+      }
+    });
+
+    editorRef.current.on("cursorActivity", () => {
+      const cursor = editorRef.current.getCursor();
+      socketRef.current.emit(Actions.CURSOR_MOVE, {
+      id,
+      cursor,
+      });
+    });
   }
 
   const runCode = () => {
@@ -141,7 +161,7 @@ const MainEditor = ({ socketRef, id, textChange, clients }) => {
         <button className="absolute bottom-2 right-1/4 px-4 py-2 bg-blue-800 text-white rounded z-10 rounded-lg" onClick={runCode}>
         Run
         </button>
-      <div className="absolute bottom-0 left-0 right-0 bg-gray-100 p-5 border-gray-300 bg-gray-400 rounded-lg">
+      <div className="absolute bottom-0 w-5/6 right-0 bg-gray-100 p-5 border-gray-300 bg-gray-400 rounded-lg">
         <h3>Output:</h3>
         <pre>{output}</pre>
       </div>

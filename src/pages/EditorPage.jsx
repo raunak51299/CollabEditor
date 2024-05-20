@@ -12,8 +12,8 @@ import "react-resizable/css/styles.css";
 import { space } from "postcss/lib/list";
 
 const EditorPage = () => {
-  const location = useLocation(); // Get the current location object from react-router-dom
-  const reactNavigator = useNavigate(); // Get the navigate function from react-router-dom
+  const location = useLocation();  // Get the current location object from react-router-dom
+  const reactNavigator = useNavigate();  // Get the navigate function from react-router-dom
   const { id } = useParams(); // Get the id parameter from the URL
   const socketRef = useRef(null); // Create a mutable ref object to store the socket connection
   const [clients, setClients] = useState([]); // Initialize the clients state with an empty array
@@ -75,7 +75,7 @@ const EditorPage = () => {
     initialize();
 
     return () => {
-      socketRef.current.disconnect(); // Disconnect the socket connection
+      socketRef.current.disconnect();  // Disconnect the socket connection
       // Unsubscribe from socket io events
       socketRef.current.off(Actions.JOINED);
       socketRef.current.off(Actions.DISCONNECTED);
@@ -88,7 +88,7 @@ const EditorPage = () => {
 
   // Check if the location state is not available, then redirect to the home page
   if (!location.state) {
-    return <Navigate to="/" />;
+    return <Navigate to="/"/>;
   }
 
   return (
