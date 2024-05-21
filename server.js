@@ -21,17 +21,7 @@ app.use((req, res, next) => {
 // Socket mapping
 const socketMap = {}; // Object to map socket IDs to usernames
 
-/**
- * Retrieves all clients connected to a specific room.
- *
- * @param {string} id - The ID of the room.
- * @returns {Array} - An array of objects containing the user socket ID and username.
- */
-/**
- * Retrieves all clients in a specific room.
- * @param {string} id - The ID of the room.
- * @returns {Array<Object>} - An array of client objects containing the userSocketId and userName.
- */
+
 const getAllClients = (id) => {
   // checking all the rooms in the adapters ad getting specific room
   return Array.from(io.sockets?.adapter?.rooms.get(id) || []).map(
